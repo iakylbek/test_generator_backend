@@ -16,7 +16,14 @@ class LLMClient:
         self.client = Groq(api_key=api_key)
         self.model = "openai/gpt-oss-120b"
 
-    def generate_tests(self, code: str, language: str, framework: str | None, instruction: str | None) -> str:
+    def generate_tests(
+        self,
+        code: str,
+        language: str,
+        source_file: str | None,
+        framework: str | None,
+        instruction: str | None,
+    ) -> str:
         framework_text = (
             framework
             if framework
@@ -32,6 +39,7 @@ class LLMClient:
         system_prompt = SYSTEM_PROMPT
         user_prompt = f""" 
             Язык программирования: {language}
+            Исходный файл: {source_file or "не указан"}
             Тестовый framework: {framework_text}
             Дополнительная инструкция: {instruction_text}
             Исходный код: {code}

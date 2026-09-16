@@ -21,6 +21,7 @@ def generate_tests(request: TestGenerationRequest):
         tests = llm.generate_tests(
             code=request.code,
             language=request.language,
+            source_file=request.source_file,
             framework=request.framework,
             instruction=request.instruction
         )
